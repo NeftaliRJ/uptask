@@ -1,9 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
-const dotenv = require('dotenv');
 
-dotenv.config();
 const app = express();
 
 app.use(express.static('public'));
@@ -16,6 +15,8 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/', routes() );
  
-app.listen(3000);
+app.listen(3000, () => {
+    console.log('App ready')
+});
 
 
