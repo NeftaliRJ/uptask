@@ -7,10 +7,13 @@ module.exports = validator = (schema, property) => {
       next(); 
     } else { 
       const { details } = error; 
-      const message = details.map(i => i.message).join(',');
+      const errores = details.map(i => i.message).join(',');
 
-      console.log("error", message); 
-      res.status(422).json({ error: message }) 
+      console.log("error", errores); 
+      res.render('nuevo-proyecto', {
+          nombrePagina: 'Nuevo proyecto',
+          errores
+      })
     } 
   } 
 } 

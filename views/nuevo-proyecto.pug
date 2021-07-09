@@ -5,8 +5,7 @@ block contenido
         h1=nombrePagina
 
         if errores
-            each error in errores 
-                .alerta=error.texto
+            .alerta=errores
                 
         form.agregar-proyecto(action="/nuevo-proyecto" method='POST')
             .campo 

@@ -1,8 +1,11 @@
 const Proyectos = require("../models/Proyecto");
 
-exports.proyectosHome =(req, res) => {
+exports.proyectosHome = async (req, res) => {
+    const proyectos = await Proyectos.findAll();
+
     res.render('index', {
-        nombrePagina: 'Proyectos'
+        nombrePagina: 'Proyectos',
+        proyectos
     });
 }
 
@@ -15,20 +18,20 @@ exports.formularioProyecto =(req, res) => {
 exports.guardarFormulario = async (req, res) => {
     const { nombre } = req.body;
 
-    let errores = [];
+    await Proyectos.create({ nombre });
+    res.redirect('/');
+}
 
-    if(!nombre) {
-        errores.push({'texto': 'Agrega un nombre'});
-    }
-
-    if(errores.length > 0) {
-        res.render('nuevo-proyecto', {
-            nombrePagina: 'Nuevo proyecto',
-            errores
-        })
-    } else {
-
-         const proyecto = await Proyectos.create({ nombre });
-         res.redirect('/');
-    }
+exports.proyectoPorUrl = async (req, res) => {
+    const { url } = req.params
+    console.log(url)
+    const proyecto = await Proyectos.findOne({
+        where: {
+            url
+        }
+    })
+    res.render('tareas', {
+        nombrePagina: 'Tareas del proyecto',
+        proyecto
+    })
 }
