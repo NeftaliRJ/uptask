@@ -9,6 +9,7 @@ module.exports = function () {
     router.get('/nuevo-proyecto', proyectosController.formularioProyecto);
     router.post('/nuevo-proyecto', validator(schemaProyecto), proyectosController.guardarFormulario);
     router.get('/proyectos/:url', proyectosController.proyectoPorUrl);
+    router.get('/proyectos/editar/:id', proyectosController.formularioEditar);
 
     return router;
 }

@@ -9,9 +9,11 @@ exports.proyectosHome = async (req, res) => {
     });
 }
 
-exports.formularioProyecto =(req, res) => {
+exports.formularioProyecto = async (req, res) => {
+    const proyectos = await Proyectos.findAll();
     res.render('nuevo-proyecto', {
-        nombrePagina: 'Nuevo Proyecto'
+        nombrePagina: 'Nuevo Proyecto',
+        proyectos
     });
 }
 
@@ -23,6 +25,7 @@ exports.guardarFormulario = async (req, res) => {
 }
 
 exports.proyectoPorUrl = async (req, res) => {
+    const proyectos = await Proyectos.findAll();
     const { url } = req.params
     console.log(url)
     const proyecto = await Proyectos.findOne({
@@ -32,6 +35,23 @@ exports.proyectoPorUrl = async (req, res) => {
     })
     res.render('tareas', {
         nombrePagina: 'Tareas del proyecto',
-        proyecto
+        proyecto,
+        proyectos
+    })
+}
+
+exports.formularioEditar = async (req, res) => {
+    const proyectos = await Proyectos.findAll();
+    const { id } = req.params
+    console.log(url)
+    const proyecto = await Proyectos.findOne({
+        where: {
+            id
+        }
+    })
+    res.render('tareas', {
+        nombrePagina: 'Tareas del proyecto',
+        proyecto,
+        proyectos
     })
 }
